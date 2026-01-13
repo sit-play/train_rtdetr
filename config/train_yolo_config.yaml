@@ -1,0 +1,78 @@
+# YOLO Training Configuration
+# แก้ไฟล์นี้แล้วรัน train_yolo_seg.py
+
+# ========== Dataset ==========
+dataset:
+  data_path: /home/play/Desktop/train_rtdetr/dataset/blight_only.v4/data.yaml
+  # หมายเหตุ: YOLO ใช้ dataset ต้นฉบับ (ไม่ใช่ที่ augment แล้ว)
+  # เพราะ YOLO ทำ augmentation อัตโนมัติตอนเทรน
+
+# ========== Model ==========
+model:
+  name: rtdetr-l.pt    # yolo12n-seg, yolo11n-seg, yolov8n-seg
+  # n = nano (เล็กสุด, เร็วสุด)
+  # s = small
+  # m = medium
+  # l = large
+  # x = xlarge
+
+# ========== Training ==========
+training:
+  epochs: 100
+  batch_size: 4
+  image_size: 320
+  device: 0              # 0 = GPU 0, 'cpu' = CPU
+  patience: 20           # early stopping
+  seed: 42
+
+# ========== Project ==========
+project:
+  save_dir: /home/play/Desktop/train_rtdetr/model/runs/segment
+  name: blight_only
+
+# ========== Augmentation ==========
+augmentation:
+  # Geometric - ปิดทั้งหมด (ตาม config)
+  geometric:
+    enabled: true
+    degrees: 0.0         # rotation
+    translate: 0.0       # shift
+    scale: 0.5           # zoom
+    shear: 0.0
+    perspective: 0.0
+    flipud: 0.0          # vertical flip
+    fliplr: 0.0          # horizontal flip
+    mosaic: 0.0
+    mixup: 0.0
+  
+  # Color - เปิดใช้งาน (ตาม config)
+  color:
+    enabled: false
+    hsv_h: 0.015         # hue shift (0-1)
+    hsv_s: 0.7           # saturation (0-1)
+    hsv_v: 0.4           # brightness/value (0-1)
+    # หมายเหตุ: YOLO ใช้ scale 0-1 แทนที่จะเป็น percentage
+    # hsv_h: 0.015 ≈ hue_shift_limit 20 ใน albumentations
+    # hsv_s: 0.7 ≈ sat_shift_limit 30%
+    # hsv_v: 0.4 ≈ val_shift_limit 25%
+
+# ========== Hyperparameters ==========
+hyperparameters:
+  learning_rate: 0.001
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3
+  
+  # Loss weights
+  box: 7.5
+  cls: 0.5
+  dfl: 1.5
+
+# ========== Advanced Settings ==========
+advanced:
+  workers: 8             # dataloader workers
+  amp: true              # automatic mixed precision
+  deterministic: true    # reproducible results
+  optimizer: auto        # auto, SGD, Adam, AdamW
+  plots: true            # save training plots
+  verbose: true          # verbose output

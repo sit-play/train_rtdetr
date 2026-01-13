@@ -1,0 +1,61 @@
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+
+# Models & Weights (ไฟล์ใหญ่)
+*.pth
+*.pt
+*.weights
+*.onnx
+*.data
+*.bin
+*.axmodel
+
+# Datasets & Images
+dataset/
+data/
+images/
+*.jpg
+*.png
+*.jpeg
+*.bmp
+
+# Videos
+*.mp4
+*.avi
+*.mov
+
+# Training outputs
+runs/
+wandb/
+checkpoints/
+plots/
+evaluation_results/
+axmodel_build/
+
+# Results
+result/
+result*.jpg
+result*.png
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep only source code
+# อนุญาตเฉพาะ .py และ .yaml
+!**/*.py
+!**/*.yaml
+!**/*.yml
