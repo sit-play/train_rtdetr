@@ -3,7 +3,7 @@
 
 # ========== Dataset ==========
 dataset:
-  data_path: /home/play/Desktop/train_rtdetr/dataset/blight_only.v4/data.yaml
+  data_path: /home/play/Desktop/train_yolo/dataset/Rhizoctonia.v3/data.yaml
   # หมายเหตุ: YOLO ใช้ dataset ต้นฉบับ (ไม่ใช่ที่ augment แล้ว)
   # เพราะ YOLO ทำ augmentation อัตโนมัติตอนเทรน
 
@@ -19,8 +19,8 @@ model:
 # ========== Training ==========
 training:
   epochs: 100
-  batch_size: 4
-  image_size: 320
+  batch_size: 3
+  image_size: 640
   device: 0              # 0 = GPU 0, 'cpu' = CPU
   patience: 20           # early stopping
   seed: 42
@@ -28,7 +28,7 @@ training:
 # ========== Project ==========
 project:
   save_dir: /home/play/Desktop/train_rtdetr/model/runs/segment
-  name: blight_only
+  name: Rhizoctonia.v3
 
 # ========== Augmentation ==========
 augmentation:
